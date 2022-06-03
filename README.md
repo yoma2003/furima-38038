@@ -27,7 +27,7 @@
 | category_id        | integer    | null: false                    |
 | condition_id       | integer    | null: false                    |
 | delivery_charge_id | integer    | null: false                    |
-| shipping_area_id   | integer    | null: false                    |
+| prefectures_id     | integer    | null: false                    |
 | days_to_ship_id    | integer    | null: false                    |
 | price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
@@ -41,11 +41,10 @@
 
 ## purchases テーブル
 
-| Column     | Type       | Options                        |
-| ---------- | ---------- | ------------------------------ |
-| user       | references | null: false, foreign_key: true |
-| item       | references | null: false, foreign_key: true |
-| address_id | references | null: false, foreign_key: true |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -55,14 +54,15 @@
 
 ## addresses テーブル
 
-| Column        | Type   | Options     |
-| ------------- | ------ | ----------- |
-| post_code     | string | null: false |
-| prefectures   | string | null: false |
-| municipality  | string | null: false |
-| address       | string | null: false |
-| building_name | string | null: false |
-| phone_number  | string | null: false |
+| Column         | Type       | Options                        |
+| -------------- | ---------- | ------------------------------ |
+| post_code      | string     | null: false                    |
+| prefectures_id | integer    | null: false                    |
+| municipality   | string     | null: false                    |
+| address        | string     | null: false                    |
+| building_name  | string     |                                |
+| phone_number   | string     | null: false                    |
+| purchase_id    | references | null: false, foreign_key: true |
 
 ### Association
 
