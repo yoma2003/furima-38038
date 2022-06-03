@@ -7,65 +7,63 @@
 | nickname           | string | null: false               |
 | email              | string | null: false, unique: true |
 | encrypted_password | string | null: false               |
-| full_name          | string | null: false               |
-| kana_name          | string | null: false               |
+| last_name          | string | null: false               |
+| first_name         | string | null: false               |
+| kana_last_name     | string | null: false               |
+| kana_first_name    | string | null: false               |
 | date_of_birth      | date   | null: false               |
 
 ### Association
 
 - has_many :items
-- has_many :comments
 - has_many :purchases
 
 ## items テーブル
 
-| Column          | Type       | Options                        |
-| --------------- | ---------- | ------------------------------ |
-| name            | string     | null: false                    |
-| describe        | text       | null: false                    |
-| category        | string     | null: false                    |
-| condition       | integer    | null: false                    |
-| delivery_charge | integer    | null: false                    |
-| shipping_area   | string     | null: false                    |
-| days_to_ship    | integer    | null: false                    |
-| price           | integer    | null: false                    |
-| user_id         | references | null: false, foreign_key: true |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| name               | string     | null: false                    |
+| describe           | text       | null: false                    |
+| category_id        | integer    | null: false                    |
+| condition_id       | integer    | null: false                    |
+| delivery_charge_id | integer    | null: false                    |
+| shipping_area_id   | integer    | null: false                    |
+| days_to_ship_id    | integer    | null: false                    |
+| price              | integer    | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
 - image保存はActiveStorageを使用
 
 ### Association
 
 - belongs_to :user
-- has_many :comments
 - has_one :purchase
-
-## comments テーブル
-
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| content | text       | null: false                    |
-| user_id | references | null: false, foreign_key: true |
-| item_id | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :user
-- belongs_to :item
 
 ## purchases テーブル
 
-| Column          | Type       | Options                        |
-| --------------- | ---------- | ------------------------------ |
-| card_number     | string     | null: false                    |
-| expiration_date | string     | null: false                    |
-| security_code   | integer    | null: false                    |
-| post_code       | string     | null: false                    |
-| address         | string     | null: false                    |
-| phone_number    | string     | null: false                    |
-| user_id         | references | null: false, foreign_key: true |
-| item_id         | references | null: false, foreign_key: true |
+| Column     | Type       | Options                        |
+| ---------- | ---------- | ------------------------------ |
+| user       | references | null: false, foreign_key: true |
+| item       | references | null: false, foreign_key: true |
+| address_id | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
+- has_one :address
+
+## addresses テーブル
+
+| Column        | Type   | Options     |
+| ------------- | ------ | ----------- |
+| post_code     | string | null: false |
+| prefectures   | string | null: false |
+| municipality  | string | null: false |
+| address       | string | null: false |
+| building_name | string | null: false |
+| phone_number  | string | null: false |
+
+### Association
+
+- belongs_to :purchase
