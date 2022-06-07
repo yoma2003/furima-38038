@@ -8,5 +8,20 @@ class Item < ApplicationRecord
 
   has_one_attached :image
 
-  validates :category_id, :condition, :condition, :delivery_charge, :prefecture, :days_to_ship, numericality: { other_than: 1, message: "can't be blank" } 
+  with_options presence: true do
+    validates :image
+    validates :name
+    validates :describe
+    validates :price
+  end
+
+  validates :price, numericality: { greater_than:  300, less_than: 9999999 }, allow_blank: true
+
+  with_options numericality: { other_than: 1, message: "can't be blank" } do
+    validates :category_id
+    validates :condition_id
+    validates :delivery_charge_id
+    validates :prefecture_id
+    validates :days_to_ship_id
+  end
 end
