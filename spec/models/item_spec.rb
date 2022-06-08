@@ -71,7 +71,7 @@ RSpec.describe Item, type: :model do
         @item.price = '５００'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
-      end      
+      end
       it 'userが紐付いていなければ登録できない' do
         @item.user = nil
         @item.valid?
