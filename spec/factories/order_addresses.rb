@@ -4,7 +4,8 @@ FactoryBot.define do
       user { FactoryBot.create(:user) }
       item { FactoryBot.create(:item) }
     end
-    post_code     { "000-0000"}
+    token         { "tok_abcdefghijk00000000000000000" }
+    post_code     { "000-0000" }
     prefecture_id { rand(2..48) }
     municipality  { Faker::Lorem.word }
     address       { Faker::Lorem.word }
