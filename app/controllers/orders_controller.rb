@@ -4,12 +4,10 @@ class OrdersController < ApplicationController
   before_action :move_to_index
 
   def index
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
       Payjp.api_key = ENV['PAYJP_SECRET_KEY']
@@ -32,7 +30,7 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index
-    redirect_to root_path if (set_item.user == current_user) || set_item.order
+    redirect_to root_path if (@item.user == current_user) || @item.order
   end
 
   def order_params
