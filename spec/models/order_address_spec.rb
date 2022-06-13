@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe OrderAddress, type: :model do
   before do
     @order_address = FactoryBot.build(:order_address)
-    sleep 0.3
   end
 
   describe '購入情報の保存' do
@@ -54,6 +53,16 @@ RSpec.describe OrderAddress, type: :model do
       end
       it 'phone_numberに「-」があると保存できない' do
         @order_address.phone_number = '090-0000-0000'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include('Phone number is invalid')
+      end
+      it 'phone_numberが9桁以下では保存できない' do
+        @order_address.phone_number = '123456789'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include('Phone number is invalid')
+      end
+      it 'phone_numberに12桁以上では保存できない' do
+        @order_address.phone_number = '123456789012'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('Phone number is invalid')
       end
